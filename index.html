@@ -70,22 +70,17 @@
 
                     <hr />
                 </div>
-             
-                    <div class="col-12" >
-                        <div id="updateDT" style="float:right;" > 最後更新時間：{{ updateDT }}</div>
-                    </div>
-              
+
+                <div class="col-12">
+                    <div id="updateDT" style="float:right;"> 最後更新時間：{{ updateDT }}</div>
+                </div>
+
     </main>
 
 
     <script>
 
-        var vm = new Vue({
-            el: '#updateDT',
-            data: {
-                updateDT: new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate()+" "+new Date().getHours()+":00"
-            }
-        })
+
 
         var calender = new Vue({
             el: '#calenderList',
@@ -118,6 +113,14 @@
                         }
                     });
 
+
+                    let updateDT=new Date( res.data.updateTime );
+                    new Vue({
+                        el: '#updateDT',
+                        data: {
+                            updateDT: updateDT.getFullYear() + "-" + updateDT.getMonth() + "-" + updateDT.getDate() + " " + updateDT.getHours() + ":00"
+                        }
+                    })
 
                 })
 
