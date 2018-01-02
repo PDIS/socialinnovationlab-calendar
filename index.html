@@ -61,8 +61,8 @@
                             <div :class="calender.cls">
                                 <div class="calenderContent">
                                     <div class="calenderTitle">{{calender.title}}</div>
-                                    <div class="calenderDate">{{calender.date}}</div>
-                                    <div class="calenderSubtitle">{{calender.subtitle}}</div>
+                                    <div  class="calenderDate">{{calender.date}}</div>
+                                    <div :class="calender.clsSubtitle" >{{calender.subtitle}}</div>
                                 </div>
                             </div>
                         </section>
@@ -102,13 +102,18 @@
                         if (auDate === (date)) {
                             var startDT = new Date(res.data.items[pointer].start);
                             var endDT = new Date(res.data.items[pointer].end);
+                            var clsSubtitle='calenderSubtitle';
+                            if(startDT.getHours()!=10)
+                            {
+                                clsSubtitle='calenderSubtitle Red';
+                            }
                             var datetime = ("0" + startDT.getHours()).slice(-2) + ":" + ("0" + startDT.getMinutes()).slice(-2) + "～" + ("0" + endDT.getHours()).slice(-2) + ":" + ("0" + endDT.getMinutes()).slice(-2);
-                            let objCalender = { title: "唐鳳都在這", date: date + "(三)", subtitle: datetime, cls: "calenderGreen" }
+                            let objCalender = { title: "唐鳳都在這", date: date + "(三)", subtitle: datetime, cls: "calenderGreen",clsSubtitle:clsSubtitle }
                             this.calenders.push(objCalender);
                             pointer++;
                         }
                         else {
-                            let objCalender = { title: "另有公務行程", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed" }
+                            let objCalender = { title: "另有公務行程", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed",clsSubtitle:"calenderSubtitle Red" }
                             this.calenders.push(objCalender);
                         }
                     });

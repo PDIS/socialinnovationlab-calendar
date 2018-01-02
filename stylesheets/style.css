@@ -43,6 +43,10 @@ body {
     font-weight: bold;
 }
 
+.Red {
+    color:red;
+}
+
 .calenderSubtitle {
     padding: 5px;
     font-weight: bold;
