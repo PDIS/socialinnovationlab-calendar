@@ -61,8 +61,8 @@
                             <div :class="calender.cls">
                                 <div class="calenderContent">
                                     <div class="calenderTitle">{{calender.title}}</div>
-                                    <div  class="calenderDate">{{calender.date}}</div>
-                                    <div :class="calender.clsSubtitle" >{{calender.subtitle}}</div>
+                                    <div class="calenderDate">{{calender.date}}</div>
+                                    <div :class="calender.clsSubtitle">{{calender.subtitle}}</div>
                                 </div>
                             </div>
                         </section>
@@ -102,30 +102,35 @@
                         var date = ("0" + (element.getMonth() + 1)).slice(-2) + "/" + ("0" + element.getDate()).slice(-2);//MM/dd
                         var auDate = ("0" + (new Date(res.data.items[pointer].start).getMonth() + 1)).slice(-2) + "/" + ("0" + new Date(res.data.items[pointer].start).getDate()).slice(-2);
                         if (auDate === (date)) {
-                            var startDT = new Date(res.data.items[pointer].start);
-                            var endDT = new Date(res.data.items[pointer].end);
-                            var clsSubtitle='calenderSubtitle';
-                            if(startDT.getHours()!=10)
-                            {
-                                clsSubtitle='calenderSubtitle Red';
+                            if (res.data.items[pointer].holiday == true) {//排除假日
+                                console.log(date+"holiday")
                             }
-                            var datetime = ("0" + startDT.getHours()).slice(-2) + ":" + ("0" + startDT.getMinutes()).slice(-2) + "～" + ("0" + endDT.getHours()).slice(-2) + ":" + ("0" + endDT.getMinutes()).slice(-2);
-                            let objCalender = { title: "唐鳳都在這", date: date + "(三)", subtitle: datetime, cls: "calenderGreen",clsSubtitle:clsSubtitle }
-                            this.calenders.push(objCalender);
+                            else {
+                             
+                                var startDT = new Date(res.data.items[pointer].start);
+                                var endDT = new Date(res.data.items[pointer].end);
+                                var clsSubtitle = 'calenderSubtitle';
+                                if (startDT.getHours() != 10) {
+                                    clsSubtitle = 'calenderSubtitle Red';
+                                }
+                                var datetime = ("0" + startDT.getHours()).slice(-2) + ":" + ("0" + startDT.getMinutes()).slice(-2) + "～" + ("0" + endDT.getHours()).slice(-2) + ":" + ("0" + endDT.getMinutes()).slice(-2);
+                                let objCalender = { title: "唐鳳都在這", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle }
+                                this.calenders.push(objCalender);
+                            }
                             pointer++;
                         }
                         else {
-                            let objCalender = { title: "另有公務行程", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed",clsSubtitle:"calenderSubtitle Red" }
+                            let objCalender = { title: "另有公務行程", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed", clsSubtitle: "calenderSubtitle Red" }
                             this.calenders.push(objCalender);
                         }
                     });
 
 
-                    let updateDT=new Date( res.data.updateTime );
+                    let updateDT = new Date(res.data.updateTime);
                     new Vue({
                         el: '#updateDT',
                         data: {
-                            updateDT: updateDT.getFullYear() + "-" + (updateDT.getMonth()+1) + "-" + updateDT.getDate() + " " + updateDT.getHours() + ":00"
+                            updateDT: updateDT.getFullYear() + "-" + (updateDT.getMonth() + 1) + "-" + updateDT.getDate() + " " + updateDT.getHours() + ":00"
                         }
                     })
 
