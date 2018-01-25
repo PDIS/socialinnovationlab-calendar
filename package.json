@@ -1,0 +1,22 @@
+{
+  "name": "socialinnovationlab-calendar",
+  "version": "1.0.0",
+  "description": "唐鳳在社會創新實驗中心的時間。",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterlee0127/socialinnovationlab-calendar.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peterlee0127/socialinnovationlab-calendar/issues"
+  },
+  "homepage": "https://github.com/peterlee0127/socialinnovationlab-calendar#readme",
+  "dependencies": {
+    "electron": "^1.7.11"
+  }
+}
