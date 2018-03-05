@@ -153,7 +153,10 @@
 
 
         function getWednesday(monthCount) {
-            var d = new Date(),
+            var nowDate_TW =new Date( new Date().toGMTString());
+            nowDate_TW=nowDate_TW.setHours( new Date(nowDate_TW).getHours()+8);
+
+            var d = new Date(nowDate_TW),
                 month = d.getMonth(),
                 Wednesdays = [];
 
