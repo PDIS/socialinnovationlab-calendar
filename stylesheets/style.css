@@ -58,8 +58,25 @@ body {
 }
 
 
+/* header */
+.headerlogo::after {
+    content: "";
+    background: url(images/社會創新實驗室.jpg) no-repeat center center/cover;
+    opacity: 0.2;
 
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
 
+.headerlogo {
+    position: relative;
+    width: 45vw;
+    margin: 0 auto;
+}
 
 
 /* Small devices (tablets, 991px and down) */
@@ -75,5 +92,23 @@ body {
 
     .calenderDate {
         font-size: 44px;
+    }
+
+    .headerlogo {
+        position: relative;
+        width: 60vw;
+        margin: 0 auto;
+    }
+}
+
+
+/* Small devices (tablets, 991px and down) */
+@media (max-width: 576px) {
+   
+
+    .headerlogo {
+        position: relative;
+        width: 75vw;
+        margin: 0 auto;
     }
 }

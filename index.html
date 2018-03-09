@@ -28,6 +28,7 @@
 
     </script>
 
+   
 
 </head>
 
@@ -36,154 +37,171 @@
         <div class="container" style="padding:10px;">
             <div class="row" style="padding-top:10px;">
                 <div class="col-12" style="text-align:center;">
-                    <div style="font-weight: bold;font-size:50px;">不須預約，直接前來即可！
-                    </div>
-                    <div class="col-12" style="text-align:center;">
-                        <div style="font-weight: bold;font-size: 35px;">每周三早上10點-下午2點 唐鳳都在這裡
-                        </div>
-                    </div>
+             
 
                     <div class="row" style="padding-top:30px;">
                         <div class="col-12" style="text-align:center;">
-                            <a title="顯示地圖" href="https://www.google.com/maps/place/%E7%A4%BE%E6%9C%83%E5%89%B5%E6%96%B0%E5%AF%A6%E9%A9%97%E4%B8%AD%E5%BF%83/@25.0389127,121.5411135,18z/data=!4m15!1m9!2m8!1z6aOv5bqX!3m6!1z6aOv5bqX!2s25.039406399999997,+121.53986929999999!3s0x3442abd6f627f72d:0x16aa317708e699c5!4m2!1d121.5398693!2d25.0394064!3m4!1s0x3442a983817f600d:0xa055f2f16c67c77d!8m2!3d25.0386229!4d121.5409823?hl=zh-TW"><img style="width:60%;" src="stylesheets/images/社會創新實驗室.jpg"></a>
+                                <a title="顯示地圖" href="https://www.google.com/maps/place/%E7%A4%BE%E6%9C%83%E5%89%B5%E6%96%B0%E5%AF%A6%E9%A9%97%E4%B8%AD%E5%BF%83/@25.0389127,121.5411135,18z/data=!4m15!1m9!2m8!1z6aOv5bqX!3m6!1z6aOv5bqX!2s25.039406399999997,+121.53986929999999!3s0x3442abd6f627f72d:0x16aa317708e699c5!4m2!1d121.5398693!2d25.0394064!3m4!1s0x3442a983817f600d:0xa055f2f16c67c77d!8m2!3d25.0386229!4d121.5409823?hl=zh-TW">
+                                <div style="font-weight: bold;font-size:3.3vw;color:black;">
+                                    每周三 唐鳳都在社創中心  </div> </a>
+                               
+                            <div class="headerlogo">
+                             
+                                <div style="
+                                text-align: left;padding: 2.8vw 2.5vw 2.2vw 4.5vw;font-size:1.2vw;">
+                                    為了方便拜會作業進行，唐鳳office hour調整如下：
+                                  
+                                </div>
+                                <div style="line-height: 2; text-align:left;font-size: 1.4vw;font-weight: bold;padding: 0.2vw 2.5vw 4.2vw 4.5vw;">
+                                    10:00-14:00 自由前來，無需預約
+                                    <br> 14:00-17:00 預約保留時段（預約系統將於近期上線）
+                                 
+                                </div>
+
+                                <div style="
+                                text-align: right;
+                                font-size: 1vw;
+                            "> （實際情況以現場為準，敬請見諒） </div>
+                            </div>
+
+                         
+
+
                         </div>
+                        <hr />
 
-                    </div>
-                    <hr />
-
-                    <div id="calenderList" class="row">
-                        <div id="calender" v-for="calender in calenders" class="col-sm-6 col-lg-3 col-12 left" style="padding: 0px;">
-                            <div :class="calender.cls">
-                                <div class="calenderContent">
-                                    <div class="calenderTitle">{{calender.title}}</div>
-                                    <div class="calenderDate">{{calender.date}}</div>
-                                    <div :class="calender.clsSubtitle">{{calender.subtitle}}</div>
+                        <div id="calenderList" class="row">
+                            <div id="calender" v-for="calender in calenders" class="col-sm-6 col-lg-3 col-12 left" style="padding: 0px;">
+                                <div :class="calender.cls">
+                                    <div class="calenderContent">
+                                        <div class="calenderTitle">{{calender.title}}</div>
+                                        <div class="calenderDate">{{calender.date}}</div>
+                                        <div :class="calender.clsSubtitle">{{calender.subtitle}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <hr />
                     </div>
 
-                    <hr />
-                </div>
-
-                <div class="col-12">
-                    <div id="updateDT" style="float:right;"> 最後更新時間：{{ updateDT }} GMT+8
-                        <br>※此行事曆每小時更新，實際情形以現場為準
+                    <div class="col-12">
+                        <div id="updateDT" style="float:right;"> 最後更新時間：{{ updateDT }} GMT+8
+                            <br>※此行事曆每小時更新，實際情形以現場為準
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
 
 
 
-    <script>
-        var calender = new Vue({
-            el: '#calenderList',
-            data: {
-                calenders: []
-            }
-            ,
-            created: function initCalender() {
-                var calenders = [];
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'https://aucal.pdis.nat.gov.tw/auCal');
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var res = JSON.parse(xhr.responseText)
+        <script>
+            var calender = new Vue({
+                el: '#calenderList',
+                data: {
+                    calenders: []
+                }
+                ,
+                created: function initCalender() {
+                    var calenders = [];
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', 'https://aucal.pdis.nat.gov.tw/auCal');
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            var res = JSON.parse(xhr.responseText)
 
-                        var dayList = getWednesday(3);
-                        var pointer = 0;
-                        dayList.forEach(function (element) {
+                            var dayList = getWednesday(3);
+                            var pointer = 0;
+                            dayList.forEach(function (element) {
 
-                            //時區轉換
-                            var TWStart= new Date(res.items[pointer].start).toLocaleString("en-US", {timeZone: "Asia/Taipei"});
-                            var TWEnd=new Date(res.items[pointer].end).toLocaleString("en-US", {timeZone: "Asia/Taipei"});
+                                //時區轉換
+                                var TWStart = new Date(res.items[pointer].start).toLocaleString("en-US", { timeZone: "Asia/Taipei" });
+                                var TWEnd = new Date(res.items[pointer].end).toLocaleString("en-US", { timeZone: "Asia/Taipei" });
 
-                            var date = ("0" + (element.getMonth() + 1)).slice(-2) + "/" + ("0" + element.getDate()).slice(-2);//MM/dd
-                            var auDate = ("0" + (new Date(TWStart).getMonth() + 1)).slice(-2) + "/" + ("0" + new Date(TWStart).getDate()).slice(-2);
-                            console.log(date+"  "+auDate);
-                            if (auDate === (date)) {
-                                if (res.items[pointer].holiday == true) {//排除假日
-                                    console.log(date + "holiday")
+                                var date = ("0" + (element.getMonth() + 1)).slice(-2) + "/" + ("0" + element.getDate()).slice(-2);//MM/dd
+                                var auDate = ("0" + (new Date(TWStart).getMonth() + 1)).slice(-2) + "/" + ("0" + new Date(TWStart).getDate()).slice(-2);
+                                console.log(date + "  " + auDate);
+                                if (auDate === (date)) {
+                                    if (res.items[pointer].holiday == true) {//排除假日
+                                        console.log(date + "holiday")
+                                    }
+                                    else {
+
+                                        var startDT = new Date(TWStart);
+                                        var endDT = new Date(TWEnd);
+                                        var clsSubtitle = 'calenderSubtitle';
+                                        if (startDT.getHours() != 10) {
+                                            clsSubtitle = 'calenderSubtitle Red';
+                                        }
+                                        var datetime = ("0" + startDT.getHours()).slice(-2) + ":" + ("0" + startDT.getMinutes()).slice(-2) + "～" + ("0" + endDT.getHours()).slice(-2) + ":" + ("0" + endDT.getMinutes()).slice(-2);
+                                        var objCalender = { title: "唐鳳都在這", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle }
+                                        calenders.push(objCalender);
+                                    }
+                                    pointer++;
                                 }
                                 else {
-
-                                    var startDT = new Date(TWStart);
-                                    var endDT = new Date(TWEnd);
-                                    var clsSubtitle = 'calenderSubtitle';
-                                    if (startDT.getHours() != 10) {
-                                        clsSubtitle = 'calenderSubtitle Red';
-                                    }
-                                    var datetime = ("0" + startDT.getHours()).slice(-2) + ":" + ("0" + startDT.getMinutes()).slice(-2) + "～" + ("0" + endDT.getHours()).slice(-2) + ":" + ("0" + endDT.getMinutes()).slice(-2);
-                                    var objCalender = { title: "唐鳳都在這", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle }
+                                    var objCalender = { title: "另有公務行程", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed", clsSubtitle: "calenderSubtitle Red" }
                                     calenders.push(objCalender);
                                 }
-                                pointer++;
-                            }
-                            else {
-                                var objCalender = { title: "另有公務行程", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed", clsSubtitle: "calenderSubtitle Red" }
-                                calenders.push(objCalender);
-                            }
-                        });
+                            });
 
 
-                        var updateDT =new Date( new Date(res.updateTime).toLocaleString("en-US", {timeZone: "Asia/Taipei"}));
-                        new Vue({
-                            el: '#updateDT',
-                            data: {
-                                updateDT: updateDT.getFullYear() + "-" + (updateDT.getMonth() + 1) + "-" + updateDT.getDate() + " " + updateDT.getHours() + ":00"
-                            }
-                        })
+                            var updateDT = new Date(new Date(res.updateTime).toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
+                            new Vue({
+                                el: '#updateDT',
+                                data: {
+                                    updateDT: updateDT.getFullYear() + "-" + (updateDT.getMonth() + 1) + "-" + updateDT.getDate() + " " + updateDT.getHours() + ":00"
+                                }
+                            })
 
-                    }
-                    else {
-                        //err
-                    }
-                };
-                xhr.send();
+                        }
+                        else {
+                            //err
+                        }
+                    };
+                    xhr.send();
 
-                this.calenders = calenders;
+                    this.calenders = calenders;
 
 
-                var interval_time = 1000 * 60 *60 * 3; //every 3 Hr
-                setInterval(function () {
-                    initCalender();
-                    console.log("re render");
+                    var interval_time = 1000 * 60 * 60 * 3; //every 3 Hr
+                    setInterval(function () {
+                        initCalender();
+                        console.log("re render");
 
-                }, interval_time);
+                    }, interval_time);
+                }
+            })
+
+
+            function getWednesday(monthCount) {
+                var d = new Date(),
+                    month = d.getMonth(),
+                    Wednesdays = [];
+
+                d.setDate(1);
+                // Get the first Wednesday in the month
+                while (d.getDay() !== 3) {
+                    d.setDate(d.getDate() + 1);
+                }
+                var tmpd = new Date();
+                tmpd.setMonth(tmpd.getMonth() + monthCount);
+                var endmonth = tmpd.getMonth();
+
+                // Get all the other Wednesday in the month
+                while (d.getMonth() !== endmonth) {
+                    Wednesdays.push(new Date(d.getTime()));
+                    d.setDate(d.getDate() + 7);
+                }
+                return Wednesdays;
             }
-        })
-
-
-        function getWednesday(monthCount) {
-         
-            var d = new Date(),
-                month = d.getMonth(),
-                Wednesdays = [];
-
-            d.setDate(1);
-            // Get the first Wednesday in the month
-            while (d.getDay() !== 3) {
-                d.setDate(d.getDate() + 1);
-            }
-            var tmpd = new Date();
-            tmpd.setMonth(tmpd.getMonth() + monthCount);
-            var endmonth = tmpd.getMonth();
-
-            // Get all the other Wednesday in the month
-            while (d.getMonth() !== endmonth) {
-                Wednesdays.push(new Date(d.getTime()));
-                d.setDate(d.getDate() + 7);
-            }
-            return Wednesdays;
-        }
 
 
 
 
-    </script>
+        </script>
 
 
 </body>
