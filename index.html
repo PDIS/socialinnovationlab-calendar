@@ -28,7 +28,7 @@
 
     </script>
 
-   
+
 
 </head>
 
@@ -37,30 +37,31 @@
         <div class="container" style="padding:10px;">
             <div class="row" style="padding-top:10px;">
                 <div class="col-12" style="text-align:center;">
-             
+
 
                     <div class="row" style="padding-top:30px;">
                         <div class="col-12" style="text-align:center;">
-                                <a title="顯示地圖" target="_blank"  href="https://www.google.com/maps/place/%E7%A4%BE%E6%9C%83%E5%89%B5%E6%96%B0%E5%AF%A6%E9%A9%97%E4%B8%AD%E5%BF%83/@25.0389127,121.5411135,18z/data=!4m15!1m9!2m8!1z6aOv5bqX!3m6!1z6aOv5bqX!2s25.039406399999997,+121.53986929999999!3s0x3442abd6f627f72d:0x16aa317708e699c5!4m2!1d121.5398693!2d25.0394064!3m4!1s0x3442a983817f600d:0xa055f2f16c67c77d!8m2!3d25.0386229!4d121.5409823?hl=zh-TW">
-                                <div class="hbanner" >
-                                    每周三 唐鳳都在社創中心  </div> </a>
-                               
+                            <a title="顯示地圖" target="_blank" href="https://www.google.com/maps/place/%E7%A4%BE%E6%9C%83%E5%89%B5%E6%96%B0%E5%AF%A6%E9%A9%97%E4%B8%AD%E5%BF%83/@25.0389127,121.5411135,18z/data=!4m15!1m9!2m8!1z6aOv5bqX!3m6!1z6aOv5bqX!2s25.039406399999997,+121.53986929999999!3s0x3442abd6f627f72d:0x16aa317708e699c5!4m2!1d121.5398693!2d25.0394064!3m4!1s0x3442a983817f600d:0xa055f2f16c67c77d!8m2!3d25.0386229!4d121.5409823?hl=zh-TW">
+                                <div class="hbanner">
+                                    每周三 唐鳳都在社創中心 </div>
+                            </a>
+
                             <div class="headerlogo">
-                             
-                                <div class="htitle" >
+
+                                <div class="htitle">
                                     為了方便拜會作業進行，唐鳳office hour調整如下：
-                                  
+
                                 </div>
-                                <div class="hcontent" >
+                                <div class="hcontent">
                                     10:00-14:00 自由前來，無需預約
                                     <br> 14:00-17:00 預約保留時段（預約系統將於近期上線）
-                                 
+
                                 </div>
 
                                 <div class="hfooter"> （實際情況以現場為準，敬請見諒） </div>
                             </div>
 
-                         
+
 
 
                         </div>
@@ -108,10 +109,12 @@
                         if (xhr.status === 200) {
                             var res = JSON.parse(xhr.responseText)
 
-                            var dayList = getWednesday(3);
+                            var dayList = getWednesday(4, new Date(res.items[0].start).getDate());
                             var pointer = 0;
                             dayList.forEach(function (element) {
-
+                                if (calenders.length >= 12) {
+                                    return;
+                                }
                                 //時區轉換
                                 var TWStart = new Date(res.items[pointer].start).toLocaleString("en-US", { timeZone: "Asia/Taipei" });
                                 var TWEnd = new Date(res.items[pointer].end).toLocaleString("en-US", { timeZone: "Asia/Taipei" });
@@ -172,12 +175,13 @@
             })
 
 
-            function getWednesday(monthCount) {
+
+            function getWednesday(monthCount, setfirstDate) {
                 var d = new Date(),
                     month = d.getMonth(),
                     Wednesdays = [];
 
-                d.setDate(1);
+                d.setDate(setfirstDate);
                 // Get the first Wednesday in the month
                 while (d.getDay() !== 3) {
                     d.setDate(d.getDate() + 1);
@@ -193,6 +197,9 @@
                 }
                 return Wednesdays;
             }
+
+
+
 
 
 
