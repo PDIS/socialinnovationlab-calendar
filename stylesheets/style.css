@@ -74,7 +74,7 @@ body {
 
 .headerlogo {
     position: relative;
-    width: 45vw;
+    width: 700px;
     margin: 0 auto;
 }
 .hbanner
@@ -84,19 +84,19 @@ body {
 .htitle{
     text-align: left;
     padding: 2.8vw 2.5vw 2.2vw 4.5vw;
-    font-size:1.4vw;
+    font-size:25px;
 }
 .hcontent{
     line-height: 2;
      text-align:left;
-     font-size: 1.6vw;
+     font-size: 22px;
      font-weight: bold;
      padding: 0.2vw 2.5vw 4.2vw 4.5vw;
 }
 .hfooter
 {
     text-align: right;
-    font-size: 1vw;
+    font-size: 20px;
 }
 
 
