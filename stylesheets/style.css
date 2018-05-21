@@ -38,23 +38,33 @@ body {
 
 .calenderDate {
     padding: 5px;
-    padding-top: 30px;
+    /* padding-top: 30px; */
     font-size: 40px;
     font-weight: bold;
 }
 
-.Red {
-    color:red;
-}
 
 .calenderSubtitle {
-    padding: 5px;
+    text-align: left;
+    padding-left: 45px;
+    padding-top: 40px;
+    
     font-weight: bold;
     font-size: 20px;
 }
 
 .red {
-    color: red;
+    color: #f44336;
+}
+.blue {
+    color: #2196f3;
+}
+.calenderBookStatus{
+  
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+    padding-left: 45px;
 }
 
 
@@ -100,8 +110,43 @@ body {
 }
 
 
+@media (max-width: 1200px) {
+    .calenderSubtitle {
+        text-align: left;
+        padding-left: 35px;
+        padding-top: 40px;
+        
+        font-weight: bold;
+        font-size: 17px;
+    }
+    
+
+    .calenderBookStatus{
+      
+        font-weight: bold;
+        font-size: 17px;
+        text-align: left;
+        padding-left: 35px;
+    }
+}
+
+
 /* Small devices (tablets, 991px and down) */
 @media (max-width: 991px) {
+    .calenderSubtitle {
+        text-align: left;
+        padding-left: 40px;
+        padding-top: 40px;
+        font-weight: bold;
+        font-size: 19px;
+    }
+    .calenderBookStatus{
+      
+        font-weight: bold;
+        font-size: 19px;
+        text-align: left;
+        padding-left: 40px;
+    }
     .calenderRed {
         width: 280px;
     }
