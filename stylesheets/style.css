@@ -27,6 +27,7 @@ body {
 }
 
 .calenderContent {
+    letter-spacing: -1px;
     padding-top: 55px;
 }
 
