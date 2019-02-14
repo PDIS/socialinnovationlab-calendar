@@ -105,16 +105,16 @@
                                 if (xhrBook.status === 200) {
                                     resBook = JSON.parse(xhrBook.responseText);
 
-                                    var booked = [];
+                                    var booked = {};
 
                                     resBook.reservations.forEach(function(element) {
                                         var tmpKey = element.startDate.substring(0, element.startDate.indexOf('T'));
 
                                         //後臺預約起訖跨多個時段時 前臺顯示並計算出跨幾個已預約時段
-                                        var times = new Date(element.bufferedEndDate).getTime()/1000 - new Date(element.bufferedStartDate).getTime()/1000;
+                                        let times = moment.utc(element.bufferedEndDate).local().valueOf()/1000-moment.utc(element.bufferedStartDate).local().valueOf()/1000;
                                         var numOfSlot = Math.ceil(times/(60*60)); // 60min per slot
 
-                                        if (booked[tmpKey] == null) {
+                                        if (typeof booked[tmpKey] === 'undefined') {
                                             booked[tmpKey] = numOfSlot;
                                         }
                                         else {
