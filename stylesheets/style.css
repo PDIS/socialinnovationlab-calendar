@@ -22,6 +22,10 @@ body {
     margin: 0 auto;
 }
 
+.row {
+    flex: 0 1 103%;
+}
+
 .calenderList {
     display: block;
 }

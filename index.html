@@ -3,41 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw">
 
 <head runat="server">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>唐鳳都在這</title>
     <link rel="shortcut icon" href="stylesheets/images/favicon.ico" type="image/x-icon">
-
-    <script src="https://code.jquery.com/jquery-1.12.4.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/vue" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.4/moment.min.js" crossorigin="anonymous"></script>
 
     <!--bootstrap-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
     <link rel="stylesheet" href="stylesheets/style.css">
-
-    <script>
-
-
-    </script>
-
-
 
 </head>
 
 <body>
     <div role="main">
         <div class="container" style="padding:10px;">
-            <div class="row" style="padding-top:10px;">
+            <div class="row" style="padding-top:20px;">
                 <div class="col-12" style="text-align:center;">
-
 
                     <div class="row" style="padding-top:30px;">
                         <div class="col-12" style="text-align:center;">
@@ -45,27 +35,18 @@
                                 <div class="hbanner">
                                     每周三 唐鳳都在社創中心 </div>
                             </a>
-
                             <div class="headerlogo">
-
                                 <div class="htitle">
                                     為了方便拜會作業進行，唐鳳office hour調整如下：
-
                                 </div>
                                 <div class="hcontent">
                                     10:00-14:00 自由前來，無需預約
                                     <br> 14:00-17:00 預約保留時段
                                     <a target="_blank" style="padding-left: 10px;" href="https://au.pdis.tw">
-                                        <i class="	fa fa-calendar"></i>我要預約</a>
-
+                                        <i class="fa fa-calendar"></i>我要預約</a>
                                 </div>
-
                                 <div class="hfooter"> （實際情況以現場為準，敬請見諒） </div>
                             </div>
-
-
-
-
                         </div>
                         <hr />
 
@@ -79,26 +60,23 @@
                                             <span style='color:black;'>現場拜會：</span>{{calender.subtitle}}</div>
                                         <div :class='"calenderBookStatus"+" "+ calender.clsBookStatus'>
                                             <span style='color:black;'>提前預約：</span>{{calender.bookStatus}}</div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <hr />
                     </div>
 
                     <div class="col-12">
                         <div id="updateDT" style="float:right;"> 最後更新時間：{{ updateDT }} GMT+8
-                            <br>※此行事曆每小時更新，實際情形以現場為準
+                            <br>※此行事曆每三小時更新，實際情形以現場為準
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
-
-
+    </div>
 
         <script>
             var calender = new Vue({
@@ -111,9 +89,10 @@
                     var calenders = [];
                     var xhr = new XMLHttpRequest();
                     xhr.open('GET', 'https://aucal.pdis.nat.gov.tw/auCal');
+                    xhr.send();
                     xhr.onload = function () {
                         if (xhr.status === 200) {
-                            var res = JSON.parse(xhr.responseText)
+                            var res = JSON.parse(xhr.responseText);
 
                             var dayList = getWednesday(4, (new Date(res.items[0].start) >= new Date()) ? new Date().getDate() : new Date(res.items[0].start).getDate());
                             var pointer = 0;
@@ -121,29 +100,35 @@
                             var resBook;
                             var xhrBook = new XMLHttpRequest();
                             xhrBook.open('GET', 'https://aucal.pdis.nat.gov.tw/getReserve');
+                            xhrBook.send();
                             xhrBook.onload = function () {
                                 if (xhrBook.status === 200) {
-                                    resBook = JSON.parse(xhrBook.responseText)
+                                    resBook = JSON.parse(xhrBook.responseText);
 
                                     var booked = [];
 
-                                    resBook.reservations.forEach(element => {
-                                        var tmpKey = element.startDate.substring(0, element.startDate.indexOf('T'))
-                                        if (booked[tmpKey] == null) {
-                                            booked[tmpKey] = 1;
+                                    resBook.reservations.forEach(function(element) {
+                                        var tmpKey = element.startDate.substring(0, element.startDate.indexOf('T'));
 
+                                        //後臺預約起訖跨多個時段時 前臺顯示並計算出跨幾個已預約時段
+                                        var times = new Date(element.bufferedEndDate).getTime()/1000 - new Date(element.bufferedStartDate).getTime()/1000;
+                                        var numOfSlot = Math.ceil(times/(60*60)); // 60min per slot
+
+                                        if (booked[tmpKey] == null) {
+                                            booked[tmpKey] = numOfSlot;
                                         }
                                         else {
-                                            booked[tmpKey] = booked[tmpKey] + 1;
+                                            booked[tmpKey] = booked[tmpKey] + numOfSlot;
                                         }
                                     });
 
-                                    const MaxBooking = 3;//每日可預約總數
+                                    const availableTimespans = ["T14:00", "T15:00", "T16:00"];
+                                    var MaxBooking = availableTimespans.length; //每日可預約總數
                                     const MaxAvailableMonth = 2; //開放可預約月數 本月+N月
 
-                                    calenders.forEach(element => {
+                                    calenders.forEach(function(element) {
 
-                                        if (booked[element.fullDT] == MaxBooking) {//
+                                        if (booked[element.fullDT] == MaxBooking) {
                                             element.bookStatus = "已額滿"
                                             element.clsBookStatus="red"
                                         }
@@ -169,52 +154,42 @@
                                 }
                             };
 
-                            xhrBook.send();
-
                             dayList.forEach(function (element) {
 
                                 if (calenders.length >= 12) {
                                     return;
                                 }
-                                //時區轉換
-                                var TWStart = new Date(res.items[pointer].start).toLocaleString("en-US", { timeZone: "Asia/Taipei" });
-                                var TWEnd = new Date(res.items[pointer].end).toLocaleString("en-US", { timeZone: "Asia/Taipei" });
 
-                                var date = ("0" + (element.getMonth() + 1)).slice(-2) + "-" + ("0" + element.getDate()).slice(-2);//MM/dd
-                                var auDate = ("0" + (new Date(TWStart).getMonth() + 1)).slice(-2) + "-" + ("0" + new Date(TWStart).getDate()).slice(-2);
+                                var date = ("0" + (element.getMonth() + 1)).slice(-2) + "-" + ("0" + element.getDate()).slice(-2); //MM/dd
+                                var auDate = moment.utc(res.items[pointer].start).local().format("MM-DD");
                                 console.log(date + "  " + auDate);
                                 if (auDate === (date)) {
                                     if (res.items[pointer].holiday == true) {//排除假日
                                         console.log(date + "holiday")
                                     }
                                     else {
-
-                                        var startDT = new Date(TWStart);
-                                        var endDT = new Date(TWEnd);
+                                        var startHHmm = moment.utc(res.items[pointer].start).local().hours() < 10 ? "10:00" : moment.utc(res.items[pointer].start).local().format("HH:mm");
                                         var clsSubtitle = 'calenderSubtitle blue';
-                                        if (startDT.getHours() != 10) {
+                                        if (startHHmm != "10:00") {
                                             clsSubtitle = 'calenderSubtitle red';
                                         }
-                                        var datetime = ("0" + startDT.getHours()).slice(-2) + ":" + ("0" + startDT.getMinutes()).slice(-2) + "～" + ("0" + endDT.getHours()).slice(-2) + ":" + ("0" + endDT.getMinutes()).slice(-2);
-                                        var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle, bookStatus: "" ,clsBookStatus:""}
-
+                                        var datetime = startHHmm + "～" + moment.utc(res.items[pointer].end).local().format("HH:mm");
+                                        var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle, bookStatus: "" , clsBookStatus: ""}
 
                                         calenders.push(objCalender);
                                     }
                                     pointer++;
                                 }
                                 else {
-                                    var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed", clsSubtitle: "calenderSubtitle red", bookStatus: "",clsBookStatus:"" }
+                                    var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed", clsSubtitle: "calenderSubtitle red", bookStatus: "", clsBookStatus: "" }
                                     calenders.push(objCalender);
                                 }
                             });
 
-
-                            var updateDT = new Date(new Date(res.updateTime).toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
                             new Vue({
                                 el: '#updateDT',
                                 data: {
-                                    updateDT: updateDT.getFullYear() + "-" + (updateDT.getMonth() + 1) + "-" + updateDT.getDate() + " " + updateDT.getHours() + ":00"
+                                    updateDT: moment.utc(res.updateTime).local().format("YYYY-MM-DD HH") + ":00"
                                 }
                             })
 
@@ -223,12 +198,10 @@
                             //err
                         }
                     };
-                    xhr.send();
 
                     this.calenders = calenders;
 
-
-                    var interval_time = 1000 * 60 * 60 * 3; //every 3 Hr
+                    var interval_time = 1000 * 60 * 60 * 1; //getCalendar every 3 hrs here every 1 hrs
                     setInterval(function () {
                         initCalender();
                         console.log("re render");
@@ -236,8 +209,6 @@
                     }, interval_time);
                 }
             })
-
-
 
             function getWednesday(monthCount, setfirstDate) {
                 var d = new Date(),
@@ -261,14 +232,7 @@
                 return Wednesdays;
             }
 
-
-
-
-
-
-
         </script>
-
 
 </body>
 
