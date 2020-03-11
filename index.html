@@ -44,9 +44,10 @@
                                     <br> 14:00-17:00 預約保留時段
                                     <a target="_blank" style="padding-left: 10px;" href="https://au.pdis.tw">
                                         <i class="fa fa-calendar"></i>我要預約</a>
-                                    <br>如拜會有任何問題，請來信至 <a href="mailto:hello@pdis.tw">hello@pdis.tw</a>
+                                    <!-- <br>如拜會有任何問題，請來信至 <a href="mailto:hello@pdis.tw">hello@pdis.tw</a> -->
                                 </div>
-                                <div class="hfooter"> （實際情況以現場為準，敬請見諒） </div>
+                                <div class="hcontent">因行程多有變動，<b>本辦保留調整此行事曆的權利，實際情況以<font color="red">現場情況</font>為準</b>，敬請見諒。
+                                    <br>如有疑問請來信：<a href="mailto:hello@pdis.tw">hello@pdis.tw</a></div>
                             </div>
                         </div>
                         <hr />
@@ -170,6 +171,8 @@
                                 }
 
                                 var date = ("0" + (element.getMonth() + 1)).slice(-2) + "-" + ("0" + element.getDate()).slice(-2); //MM/dd
+                      
+                                if(!res.items[pointer]) {return;}
                                 var auDate = moment.utc(res.items[pointer].start).local().format("MM-DD");
                                 console.log(date + "  " + auDate);
                                 if (auDate === (date)) {
