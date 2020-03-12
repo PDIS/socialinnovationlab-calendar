@@ -174,7 +174,7 @@
                       
                                 if(!res.items[pointer]) {return;}
                                 var auDate = moment.utc(res.items[pointer].start).local().format("MM-DD");
-                                console.log(date + "  " + auDate);
+                                // console.log(date + "  " + auDate);
                                 if (auDate === (date)) {
                                     //勞動節要上工
                                     if (res.items[pointer].holiday == true && moment.utc(res.items[pointer].start).local().format("MM-DD") != "05-01") {//排除假日
