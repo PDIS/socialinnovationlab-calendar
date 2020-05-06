@@ -95,7 +95,6 @@
                     xhr.onload = function () {
                         if (xhr.status === 200) {
                             var res = JSON.parse(xhr.responseText);
-
                             var dayList = getWednesday(4, new Date().getDate());
                             var pointer = 0;
 
@@ -157,7 +156,7 @@
                             };
 
                             //align data
-                            while (moment.utc(res.items[pointer].start).local() < new Date()) {
+                            while (res.items[pointer] != undefined && moment.utc(res.items[pointer].start).local() < new Date()) {
                                 pointer++;
                             }
                             if (new Date().getDay() !== 3) {
@@ -187,7 +186,9 @@
                                             clsSubtitle = 'calenderSubtitle red';
                                         }
                                         var datetime = startHHmm + "～" + moment.utc(res.items[pointer].end).local().format("HH:mm");
-                                        var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle, bookStatus: "" , clsBookStatus: ""}
+                                        // var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle, bookStatus: "" , clsBookStatus: ""}
+                                        // only for now ~ 5/20
+                                        var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed", clsSubtitle: "calenderSubtitle red", bookStatus: "", clsBookStatus: "" }
 
                                         calenders.push(objCalender);
                                     }
