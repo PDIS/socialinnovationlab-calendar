@@ -134,7 +134,7 @@
 
                                     const availableTimespans = ["T14:00", "T15:00", "T16:00"];
                                     var MaxBooking = availableTimespans.length; //每日可預約總數
-                                    const MaxAvailableMonth = 2; //開放可預約月數 本月+N月
+                                    const MaxAvailableMonth = 3; //開放可預約月數 本月+N月
                                     calenders.forEach(function(element) {
                                         if (booked[element.fullDT] == MaxBooking) {
                                             element.bookStatus = "已額滿"
