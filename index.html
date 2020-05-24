@@ -81,13 +81,11 @@
     </div>
 
         <script>
-            function findOfficeHourByDate(date, elements) {
-                let nDate = moment.utc(date).local().format("YYYY-MM-DD");
-                let item = undefined;
+            function mapOfficeHourArrayToDict(elements) {
+                let item = {};
                 elements.forEach(element => {
-                    if(nDate==moment.utc(element.start).local().format("YYYY-MM-DD")) {
-                        item = element;
-                    }
+                    let day = moment.utc(element.start).local().format("YYYY-MM-DD");
+                    item[day] = element;;
                 });
                 return item;
             }
@@ -116,7 +114,6 @@
                                 if (xhrBook.status === 200) {
                                     resBook = JSON.parse(xhrBook.responseText);
                                     var booked = {};
-
                                     resBook.reservations.forEach(function(element) {
                                         var tmpKey = element.startDate.substring(0, element.startDate.indexOf('T'));
 
@@ -161,58 +158,41 @@
                                     //err
                                 }
                             };
+                            let officeHourDict = mapOfficeHourArrayToDict(res.items);
 
-                            dayList.forEach(function (element) {
+                            dayList.forEach(function (day) {
 
                                 if (calenders.length >= 12) {
                                     return;
                                 }
-                                let day = element;
-                                let item = findOfficeHourByDate(day, res.items);
-                                var date = ("0" + (element.getMonth() + 1)).slice(-2) + "-" + ("0" + element.getDate()).slice(-2); //MM/dd
-
+                                let YDate = moment.utc(day).local().format("YYYY-MM-DD");
+                                let date = moment.utc(day).local().format("MM-DD");
+                                let item = officeHourDict[YDate];
+                                
                                 if(item==undefined) {
-                                    var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed", clsSubtitle: "calenderSubtitle red", bookStatus: "", clsBookStatus: "" }
+                                    var objCalender = { fullDT: day.getFullYear() + "-" + date,
+                                                        title: date + "(三)", 
+                                                        date: date + "(三)", 
+                                                        subtitle: "另有公務行程", 
+                                                        cls: "calenderRed", clsSubtitle: "calenderSubtitle red", 
+                                                        bookStatus: "", clsBookStatus: "" }
                                     calenders.push(objCalender);
                                 }else {
                                     var startHHmm = moment.utc(item.start).local().format("HH:mm");
+                                    var endHHmm = moment.utc(item.end).local().format("HH:mm");
                                     var clsSubtitle = 'calenderSubtitle blue';
-                                    if (startHHmm != "10:00") {
+                                    if (startHHmm != "10:00" || endHHmm!= "14:00") {
                                         clsSubtitle = 'calenderSubtitle red';
                                     }
                                     var datetime = startHHmm + "～" + moment.utc(item.end).local().format("HH:mm");
-                                    var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle, bookStatus: "" , clsBookStatus: ""}
+                                    var objCalender = { fullDT: day.getFullYear() + "-" + date, 
+                                                        title: date + "(三)", 
+                                                        date: date + "(三)", 
+                                                        subtitle: datetime, 
+                                                        cls: "calenderGreen", clsSubtitle: clsSubtitle, 
+                                                        bookStatus: "" , clsBookStatus: "" }
                                     calenders.push(objCalender);
                                 }
-                           
-                                // var date = ("0" + (element.getMonth() + 1)).slice(-2) + "-" + ("0" + element.getDate()).slice(-2); //MM/dd
-                      
-                                // // if(!res.items[pointer]) {return;}
-                                // var auDate = moment.utc(res.items[pointer].start).local().format("MM-DD");
-                                // console.log(date + "  " + auDate);
-                                // if (auDate === (date)) {
-                                //     //勞動節要上工
-                                //     if (res.items[pointer].holiday == true && moment.utc(res.items[pointer].start).local().format("MM-DD") != "05-01") {//排除假日
-                                //         console.log(date + "holiday")
-                                //     }
-                                //     else {
-                                //         var startHHmm = moment.utc(res.items[pointer].start).local().format("HH:mm");
-                                //         var clsSubtitle = 'calenderSubtitle blue';
-                                //         // if (startHHmm != "10:00") {
-                                //         //     clsSubtitle = 'calenderSubtitle red';
-                                //         // }
-                                //         var datetime = startHHmm + "～" + moment.utc(res.items[pointer].end).local().format("HH:mm");
-                                //         var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: datetime, cls: "calenderGreen", clsSubtitle: clsSubtitle, bookStatus: "" , clsBookStatus: ""}
-                                //         // only for now ~ 5/20
-                                //         // var objCalender = { fullDT: element.getFullYear() + "-" + date, title: date + "(三)", date: date + "(三)", subtitle: "另有公務行程", cls: "calenderRed", clsSubtitle: "calenderSubtitle red", bookStatus: "", clsBookStatus: "" }
-
-                                //         calenders.push(objCalender);
-                                //     }
-                                //     pointer++;
-                                // }
-                                // else {
-                       
-                                // }
                             });
 
                             new Vue({
