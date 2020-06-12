@@ -101,6 +101,9 @@ var calender = new Vue({
                         if (startHHmm != "10:00" || endHHmm!= "14:00") {
                             clsSubtitle = 'calenderSubtitle red';
                         }
+                        if(startHHmm == "09:00") {
+                            startHHmm = "10:00";
+                        }
                         var datetime = startHHmm + "～" + moment.utc(item.end).local().format("HH:mm");
                         var objCalender = { fullDT: day.getFullYear() + "-" + date, 
                                             title: date + "(三)", 
