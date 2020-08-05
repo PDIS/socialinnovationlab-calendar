@@ -33,16 +33,22 @@ var calender = new Vue({
                         var booked = {};
                         resBook.reservations.forEach(function(element) {
                             var tmpKey = element.startDate.substring(0, element.startDate.indexOf('T'));
+                            let startHour = moment(element.startDate).hour();
 
-                            //後臺預約起訖跨多個時段時 前臺顯示並計算出跨幾個已預約時段
-                            let times = moment.utc(element.bufferedEndDate).local().valueOf()/1000-moment.utc(element.bufferedStartDate).local().valueOf()/1000;
-                            var numOfSlot = Math.ceil(times/(60*60)); // 60min per slot
+                            if(startHour>=14){
+                                // 避免開放早上預約衝突，等正式釋出後修正
 
-                            if (typeof booked[tmpKey] === 'undefined') {
-                                booked[tmpKey] = numOfSlot;
-                            }
-                            else {
-                                booked[tmpKey] = booked[tmpKey] + numOfSlot;
+                                //後臺預約起訖跨多個時段時 前臺顯示並計算出跨幾個已預約時段
+                                let times = moment.utc(element.bufferedEndDate).local().valueOf()/1000-moment.utc(element.bufferedStartDate).local().valueOf()/1000;
+                                var numOfSlot = Math.ceil(times/(60*60)); // 60min per slot
+                        
+                                if (typeof booked[tmpKey] === 'undefined') {
+                                    booked[tmpKey] = numOfSlot;
+                                }
+                                else {
+                                    booked[tmpKey] = booked[tmpKey] + numOfSlot;
+                                
+                                }
                             }
                         });
 
