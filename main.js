@@ -66,10 +66,11 @@ var calender = new Vue({
                         var MaxBooking = availableTimespans.length; //每日可預約總數
                         const MaxAvailableMonth = 3; //開放可預約月數 本月+N月
                         calenders.forEach(function(element) {
-
+                            let isDayAvailable = false;
                             if(booked[element.fullDT]==undefined) {
                                 element.bookStatus = "尚可預約"
                                 element.clsBookStatus="blue"
+                                isDayAvailable = true;
                             }
                             else if (booked[element.fullDT]['afternoon'] == MaxBooking) {
                                 element.bookStatus = "已額滿"
@@ -78,11 +79,13 @@ var calender = new Vue({
                             else if (booked[element.fullDT]['afternoon'] < MaxBooking) {
                                 element.bookStatus = "尚可預約"
                                 element.clsBookStatus="blue"
+                                isDayAvailable = true;
+
                             }
                             else if (new Date(element.fullDT).getMonth() <= (new Date().getMonth() + MaxAvailableMonth) && new Date(element.fullDT) > new Date()) {
-
                                 element.bookStatus = "尚可預約"
                                 element.clsBookStatus="blue"
+                                isDayAvailable = true;
                             }
                             else {
                                 element.bookStatus = "未開放預約"
@@ -91,29 +94,32 @@ var calender = new Vue({
 
                             if(booked[element.fullDT]==undefined) {
                                 element.subtitle = "尚可預約"
-                                element.cls="calenderGreen"
                                 element.clsSubtitle = "calenderSubtitle blue";
+                                isDayAvailable = true;
                             }
                             else if (booked[element.fullDT]['morning'] == 2) {
                                 element.subtitle = "已額滿"
-                                element.cls="calenderRed"
                                 element.clsSubtitle = "calenderSubtitle red";
                             }
                             else if (booked[element.fullDT]['morning'] < 2) {
                                 element.subtitle = "尚可預約"
-                                element.cls="calenderGreen"
                                 element.clsSubtitle = "calenderSubtitle blue";
+                                isDayAvailable = true;
                             }
                             else if (new Date(element.fullDT).getMonth() <= (new Date().getMonth() + MaxAvailableMonth) && new Date(element.fullDT) > new Date()) {
 
                                 element.subtitle = "尚可預約"
-                                element.cls="calenderGreen"
                                 element.clsSubtitle = "calenderSubtitle blue";
+                                isDayAvailable = true;
                             }
                             else {
                                 element.subtitle = "未開放預約"
-                                element.cls="calenderRed"
                                 element.clsSubtitle = "calenderSubtitle red";
+                            }
+                            if(isDayAvailable) {
+                                element.cls="calenderGreen"
+                            }else {
+                                element.cls="calenderRed"
                             }
 
                         });
