@@ -22,7 +22,6 @@ var calender = new Vue({
                 var res = JSON.parse(xhr.responseText);
                 var dayList = getWednesday(4, new Date().getDate());
                 var pointer = 0;
-
                 var resBook;
                 var xhrBook = new XMLHttpRequest();
                 xhrBook.open('GET', 'https://aucal.pdis.nat.gov.tw/getReserve');
@@ -32,35 +31,47 @@ var calender = new Vue({
                         resBook = JSON.parse(xhrBook.responseText);
                         var booked = {};
                         resBook.reservations.forEach(function(element) {
-                            var tmpKey = element.startDate.substring(0, element.startDate.indexOf('T'));
+                            var date = element.startDate.substring(0, element.startDate.indexOf('T'));
                             let startHour = moment(element.startDate).hour();
 
-                            if(startHour>=14){
+                          
+                                // afternoon
                                 // 避免開放早上預約衝突，等正式釋出後修正
 
                                 //後臺預約起訖跨多個時段時 前臺顯示並計算出跨幾個已預約時段
                                 let times = moment.utc(element.bufferedEndDate).local().valueOf()/1000-moment.utc(element.bufferedStartDate).local().valueOf()/1000;
                                 var numOfSlot = Math.ceil(times/(60*60)); // 60min per slot
-                        
-                                if (typeof booked[tmpKey] === 'undefined') {
-                                    booked[tmpKey] = numOfSlot;
+                            
+                                if (typeof booked[date] === 'undefined') {
+                                    booked[date] = {};
+                                    booked[date]['afternoon'] = 0; 
+                                    booked[date]['morning'] = 0;
+                                    if(startHour>=13){
+                                        booked[date]['afternoon'] = numOfSlot;
+                                    }else {
+                                        booked[date]['morning'] = numOfSlot;
+                                    }
                                 }
                                 else {
-                                    booked[tmpKey] = booked[tmpKey] + numOfSlot;
+                                    if(startHour>=13){
+                                        booked[date]['afternoon']  = booked[date]['afternoon'] + numOfSlot;
+                                    }else {
+                                        booked[date]['morning']  = booked[date]['morning']  + numOfSlot;
+                                    }
                                 
                                 }
-                            }
                         });
+                        // console.dir(booked,{depyh:null});
 
-                        const availableTimespans = ["T14:00", "T15:00", "T16:00"];
+                        const availableTimespans = ["T13:00","T14:00", "T15:00", "T16:00"];
                         var MaxBooking = availableTimespans.length; //每日可預約總數
                         const MaxAvailableMonth = 3; //開放可預約月數 本月+N月
                         calenders.forEach(function(element) {
-                            if (booked[element.fullDT] == MaxBooking) {
+                            if (booked[element.fullDT]['afternoon'] == MaxBooking) {
                                 element.bookStatus = "已額滿"
                                 element.clsBookStatus="red"
                             }
-                            else if (booked[element.fullDT] < MaxBooking) {
+                            else if (booked[element.fullDT]['afternoon'] < MaxBooking) {
                                 element.bookStatus = "尚可預約"
                                 element.clsBookStatus="blue"
                             }
@@ -74,6 +85,28 @@ var calender = new Vue({
                                 element.clsBookStatus="red"
                             }
 
+                            if (booked[element.fullDT]['morning'] == 2) {
+                                element.subtitle = "已額滿"
+                                element.cls="calenderRed"
+                                element.clsSubtitle = "calenderSubtitle red";
+                            }
+                            else if (booked[element.fullDT]['morning'] < 2) {
+                                element.subtitle = "尚可預約"
+                                element.cls="calenderGreen"
+                                element.clsSubtitle = "calenderSubtitle blue";
+                            }
+                            else if (new Date(element.fullDT).getMonth() <= (new Date().getMonth() + MaxAvailableMonth) && new Date(element.fullDT) > new Date()) {
+
+                                element.subtitle = "尚可預約"
+                                element.cls="calenderGreen"
+                                element.clsSubtitle = "calenderSubtitle blue";
+                            }
+                            else {
+                                element.subtitle = "未開放預約"
+                                element.cls="calenderRed"
+                                element.clsSubtitle = "calenderSubtitle red";
+                            }
+
                         });
 
                     }
@@ -81,10 +114,11 @@ var calender = new Vue({
                         //err
                     }
                 };
-                let officeHourDict = mapOfficeHourArrayToDict(res.items);
 
+                
+                let officeHourDict = mapOfficeHourArrayToDict(res.items);   
+                
                 dayList.forEach(function (day) {
-
                     if (calenders.length >= 12) {
                         return;
                     }
@@ -96,7 +130,7 @@ var calender = new Vue({
                         var objCalender = { fullDT: day.getFullYear() + "-" + date,
                                             title: date + "(三)", 
                                             date: date + "(三)", 
-                                            subtitle: "另有公務行程", 
+                                            subtitle: "", 
                                             cls: "calenderRed", clsSubtitle: "calenderSubtitle red", 
                                             bookStatus: "", clsBookStatus: "" }
                         calenders.push(objCalender);
@@ -120,7 +154,7 @@ var calender = new Vue({
                         calenders.push(objCalender);
                     }
                 });
-
+                
                 new Vue({
                     el: '#updateDT',
                     data: {
