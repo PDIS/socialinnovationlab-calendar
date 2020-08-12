@@ -41,7 +41,6 @@ var calender = new Vue({
                                 //後臺預約起訖跨多個時段時 前臺顯示並計算出跨幾個已預約時段
                                 let times = moment.utc(element.bufferedEndDate).local().valueOf()/1000-moment.utc(element.bufferedStartDate).local().valueOf()/1000;
                                 var numOfSlot = Math.ceil(times/(60*60)); // 60min per slot
-                            
                                 if (typeof booked[date] === 'undefined') {
                                     booked[date] = {};
                                     booked[date]['afternoon'] = 0; 
@@ -67,7 +66,12 @@ var calender = new Vue({
                         var MaxBooking = availableTimespans.length; //每日可預約總數
                         const MaxAvailableMonth = 3; //開放可預約月數 本月+N月
                         calenders.forEach(function(element) {
-                            if (booked[element.fullDT]['afternoon'] == MaxBooking) {
+
+                            if(booked[element.fullDT]==undefined) {
+                                element.bookStatus = "尚可預約"
+                                element.clsBookStatus="blue"
+                            }
+                            else if (booked[element.fullDT]['afternoon'] == MaxBooking) {
                                 element.bookStatus = "已額滿"
                                 element.clsBookStatus="red"
                             }
@@ -85,7 +89,12 @@ var calender = new Vue({
                                 element.clsBookStatus="red"
                             }
 
-                            if (booked[element.fullDT]['morning'] == 2) {
+                            if(booked[element.fullDT]==undefined) {
+                                element.subtitle = "尚可預約"
+                                element.cls="calenderGreen"
+                                element.clsSubtitle = "calenderSubtitle blue";
+                            }
+                            else if (booked[element.fullDT]['morning'] == 2) {
                                 element.subtitle = "已額滿"
                                 element.cls="calenderRed"
                                 element.clsSubtitle = "calenderSubtitle red";
