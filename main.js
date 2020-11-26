@@ -213,7 +213,9 @@ function getWednesday(monthCount, setfirstDate) {
         Wednesdays.push(new Date(d.getTime()));
         d.setDate(d.getDate() + 7);
     }
-    // only show 2020-10-01 to 2021-01-31
-    Wednesdays = Wednesdays.filter(item=> item.getTime()>= new Date("2020-10-01").getTime() && item.getTime()<= new Date("2021-01-31").getTime())
+    // only show now+90days;
+    let now = new Date();
+    let endDay = new Date(now.getFullYear(), now.getMonth() , now.getDate()+90);
+    Wednesdays = Wednesdays.filter(item=> item.getTime()<= endDay.getTime());
     return Wednesdays;
 }
