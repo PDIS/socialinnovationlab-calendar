@@ -216,7 +216,7 @@ function getWednesday(monthCount, setfirstDate) {
     // only show now+90days;
     let now = new Date();
     let endDay = new Date(now.getFullYear(), now.getMonth() , now.getDate()+90);
-    endDay = new Date("2021-04-01")
+    // endDay = new Date("2021-04-01")
     Wednesdays = Wednesdays.filter(item=> item.getTime()<= endDay.getTime());
     return Wednesdays;
 }
