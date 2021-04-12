@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <div role="main">
+    <div id="app" role="main">
         <div class="container" style="padding:10px;">
             <div class="row" style="padding-top:20px;">
                 <div class="col-12" style="text-align:center;">
@@ -59,7 +59,7 @@
                         </div>
                         <hr />
 
-                        <div id="calenderList" class="row">
+                        <div class="row">
                             <div id="calender" v-for="calender in calenders" class="col-sm-6 col-lg-3 col-12 left" style="padding: 0px;">
                                 <div :class="calender.cls">
                                     <div class="calenderContent">
@@ -77,7 +77,7 @@
                     </div>
 
                     <div class="col-12">
-                        <div id="updateDT" style="float:right;"> 最後更新時間：{{ updateDT }} GMT+8
+                        <div id="updateDT" style="float:right;"> 最後更新時間：{{ updateTime }} GMT+8
                             <br>※此行事曆每三小時更新，實際情形以現場為準
                         </div>
                     </div>

@@ -1,8 +1,9 @@
 var calender = new Vue({
-  el: '#calenderList',
+  el: '#app',
   data: {
     calenders: [],
-    interval_time: 1000 * 60 * 60 * 1 //getCalendar every 3 hrs here every 1 hrs
+    interval_time: 1000 * 60 * 60 * 1, //getCalendar every 3 hrs here every 1 hrs
+    updateTime: ''
   },
   methods: {
     getWednesday: function (monthCount, setfirstDate) {
@@ -214,19 +215,13 @@ var calender = new Vue({
               calenders.push(objCalender)
             }
           })
-
-          new Vue({
-            el: '#updateDT',
-            data: {
-              updateDT:
-                moment.utc(res.updateTime).local().format('YYYY-MM-DD HH') +
-                ':00'
-            }
-          })
+          calender.updateTime =
+            moment.utc(res.updateTime).local().format('YYYY-MM-DD HH') + ':00'
         } else {
           //err
         }
       }
+
       this.calenders = calenders
     }
   },
@@ -234,7 +229,6 @@ var calender = new Vue({
     this.initCalender()
     setInterval(function () {
       calender.initCalender()
-      console.log('re render')
     }, this.interval_time)
   }
 })
